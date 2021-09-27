@@ -7,6 +7,10 @@ RUN yum -y update && \
     yum -y groupinstall development && \
     yum -y groupinstall network-tools
 
+RUN yum install freetype-devel \
+    && yum install oniguruma-devel \
+    && yum install libzip-devel
+
 # litespeed install
 RUN yum -y install epel-release && \
     rpm -Uvh http://rpms.litespeedtech.com/centos/litespeed-repo-1.1-1.el7.noarch.rpm && \
@@ -17,12 +21,13 @@ RUN dnf -y install libxslt-devel && \
     dnf -y install openssl-devel && \
     dnf -y install sqlite-devel && \
     dnf -y install curl-devel && \
-    dnf -y --enablerepo=PowerTools install oniguruma-devel
+    dnf -y install dnf-plugins-core && \
+    dnf -y config-manager --set-enabled powertools
 
 
-# laravel application directory
+# php application directory
 RUN mkdir /var/www
-RUN mkdir /var/www/laravel
+RUN mkdir /var/www/php
 
 # expose ports
 EXPOSE 80 443 7080 8088

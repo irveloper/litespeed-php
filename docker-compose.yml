@@ -1,11 +1,15 @@
 version: '3.7'
 services:
-  web:
-    build: ./litespeed
+  web-litespeed:
+    build: ./conf/litespeed
     ports:
-      - "8080:80"
+      - "8087:80"
       - "7080:7080"
       - "8443:443"
       - "8088:8088"
+      - "65535:65535"
     volumes:
-      - ./laravel:/var/www/laravel
+      - ./src/php-app/public:/var/www/php-app
+# ./usr/local/lsws/Example/
+# /usr/local/lsws/admin
+# /usr/local/lsws/Example/html/index.html
