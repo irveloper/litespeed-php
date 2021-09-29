@@ -9,7 +9,7 @@ services:
       - "8088:8088"
       - "65535:65535"
     volumes:
-      - ./src/php-app/public:/var/www/php-app
+      - ./src/php-app:/usr/local/lsws/APP
 # ./usr/local/lsws/Example/
 # /usr/local/lsws/admin
 # /usr/local/lsws/Example/html/index.html
