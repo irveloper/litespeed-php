@@ -1,8 +1,10 @@
-FROM --platform=linux/amd64 centos:7
+FROM --platform=linux/amd64 centos:8
 
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*
+RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.epel.cloud|g' /etc/yum.repos.d/CentOS-Linux-*
 # system update and basic component install
-RUN yum -y update && \
-    yum clean all && \
+RUN dnf clean all && rm -r /var/cache/dnf  && dnf upgrade -y && dnf update -y 
+RUN yum clean all && \
     yum -y groupinstall base && \
     yum -y groupinstall development && \
     yum -y groupinstall network-tools
