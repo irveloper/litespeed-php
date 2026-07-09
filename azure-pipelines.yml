@@ -12,8 +12,33 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
+- stage: Validate
+  displayName: Validate
+  jobs:
+  - job: Validate
+    displayName: Composer validate & lint
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: UsePHPVersion@0
+      inputs:
+        versionSpec: '8.2'
+      displayName: Use PHP 8.2
+
+    - script: |
+        cd src/php-app
+        composer validate --strict
+      displayName: Validate composer.json
+
+    - script: |
+        cd src/php-app
+        composer install --no-interaction --prefer-dist
+        vendor/bin/phpunit --testdox
+      displayName: Install deps & run tests
+
 - stage: Build
   displayName: Build image
+  dependsOn: Validate
   jobs:
   - job: Build
     displayName: Build

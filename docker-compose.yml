@@ -1,15 +1,18 @@
-version: '3.7'
 services:
   web-litespeed:
     build: ./conf/litespeed
+    restart: unless-stopped
     ports:
       - "8087:80"
       - "7080:7080"
       - "8443:443"
       - "8088:8088"
-      - "65535:65535"
     volumes:
-      - ./src/php-app:/usr/local/lsws/APP
-# ./usr/local/lsws/Example/
-# /usr/local/lsws/admin
-# /usr/local/lsws/Example/html/index.html
+      - ./src/php-app:/var/www/vhosts/localhost
+    environment:
+      - APP_ENV=dev
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
