@@ -75,6 +75,7 @@
         "symfony/polyfill-php80": "*"
     },
     "scripts": {
+        "lint": "find src tests -name '*.php' -print0 | xargs -0 -r php -l",
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"

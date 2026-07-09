@@ -32,6 +32,11 @@ stages:
 
     - script: |
         cd src/php-app
+        find src tests -name '*.php' -print0 | xargs -0 -r php -l
+      displayName: PHP syntax lint
+
+    - script: |
+        cd src/php-app
         composer install --no-interaction --prefer-dist
         vendor/bin/phpunit --testdox
       displayName: Install deps & run tests
