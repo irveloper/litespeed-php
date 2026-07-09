@@ -36,7 +36,7 @@ jobs:
         run: composer install --no-interaction --prefer-dist
 
       - name: PHP syntax lint
-        run: find src tests -name '*.php' -print0 | xargs -0 php -l | grep -v 'No syntax errors'
+        run: find src tests -name '*.php' -print0 | xargs -0 -r php -l
 
       - name: Run tests
         run: vendor/bin/phpunit --testdox
