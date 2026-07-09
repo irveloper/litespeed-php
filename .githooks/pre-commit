@@ -1,0 +1,12 @@
+#!/bin/sh
+
+PHP_FILES=$(find src/php-app/src src/php-app/tests -name '*.php' -print)
+if [ -z "$PHP_FILES" ]; then
+    exit 0
+fi
+
+echo "$PHP_FILES" | xargs php -l
+if [ $? -ne 0 ]; then
+    echo "PHP syntax check failed. Aborting commit."
+    exit 1
+fi
