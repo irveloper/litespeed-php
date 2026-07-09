@@ -1,4 +1,6 @@
 {
+    "name": "codepom/litespeed-php",
+    "description": "Symfony 7.2 application running on OpenLiteSpeed",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
